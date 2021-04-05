@@ -183,7 +183,6 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  broadcast(genomes, myid, num_procs);
 
   cout <<endl<< "Number of covid genomes = " << genomes.size()<< endl;
 
@@ -192,9 +191,10 @@ int main(int argc, char *argv[]) {
   for (int i=0;i<genomes.size();i++) {
     genome_tree.push_back(make_pair(to_string(i),genomes[i]));
   }
-  cout<<endl<<"MY ID: "<<myid;
+  //out<<endl<<"MY ID: "<<myid;
 
   if(myid == 0){
+       broadcast(genomes, myid, num_procs);
 
        // cout << "Phylogeny = " << endl;
        // cout << genome_tree[0].first << endl;
@@ -203,7 +203,7 @@ int main(int argc, char *argv[]) {
        // cout << "Length = " << best.length() << endl;
  }else{
 
-       cout<<endl<<"HELLO! ";
+      broadcast(genomes, myid, num_procs);
 
   while (genome_tree.size() >1) {
 
