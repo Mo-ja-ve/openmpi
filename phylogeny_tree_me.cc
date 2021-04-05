@@ -191,14 +191,14 @@ int main(int argc, char *argv[]) {
 
   broadcast(char_string);
 
-  // cout <<endl<< "Number of covid genomes = " << genomes.size()<< endl;
-  //
-  // // Make initial labels on all strings
-  // vector<pair<string,string> > genome_tree;
-  // for (int i=0;i<genomes.size();i++) {
-  //   genome_tree.push_back(make_pair(to_string(i),genomes[i]));
-  // }
-  // //out<<endl<<"MY ID: "<<myid;
+  cout <<endl<< "Number of covid genomes = " << genomes.size()<< endl;
+
+  // Make initial labels on all strings
+  vector<pair<string,string> > genome_tree;
+  for (int i=0;i<genomes.size();i++) {
+    genome_tree.push_back(make_pair(to_string(i),genomes[i]));
+  }
+  cout<<endl<<"MY ID: "<<myid;
   //
   //
   //
