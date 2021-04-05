@@ -168,8 +168,8 @@ int main(int argc, char *argv[]) {
   MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
   MPI_Comm_rank(MPI_COMM_WORLD, &myid);
 
-  cout<<endl<<"num proc: "<<num_procs;
-  cout<<endl<<"my id: "<<myid;
+  //cout<<endl<<"num proc: "<<num_procs;
+  //cout<<endl<<"my id: "<<myid;
 
   vector<string> genomes;
   if(myid == 0){
@@ -196,57 +196,73 @@ int main(int argc, char *argv[]) {
   // Merge strings
   if(myid != 0){
 
-       
   while (genome_tree.size() >1) {
 
+       vector <pair<int,int>> proc_pair;
+
+       for(int i = 0; i <genomes.size()-1; i++){
+            for(int j = i+1; j < genomes.size(); j++){
+                 proc_pair.push_back(make_pair(i,j));
+            }
+       }
+
+       pair<int,int> recv_ij;
+       for(int i = myid; i < proc_pair.size(); i+=num_procs){
+
+            MPI_Allreduce(&proc_pair[i], &recv_ij, 2, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+       }
+
+       cout<<endl<<"RECV_IJ: "<<recv_ij.first<<" "<<recv_ij.second;
+
     // Debugging
-    cout << "Tree size = " << genome_tree.size() << endl;
+    //cout << "Tree size = " << genome_tree.size() << endl;
 
   int max_i;
   int max_j;
   string best;
-  bool start = true;
 
-  for (int i=0;i<genome_tree.size();i++) {
-    cout << "i = " << i << endl;
-    for (int j=i+1;j<genome_tree.size();j++) {
+  bool start = true;
+  bool start_recv = start;
+  int loc_length, recv_length;
+
+    //cout << "i = " << i << endl;
       string z;
-      z=compute_LCS(genome_tree[i].second,genome_tree[j].second);
-      if (start) {
+      z=compute_LCS(genome_tree[recv_ij.first].second, genome_tree[recv_ij.second].second);
+
+      if (start_recv) {
 	start = false;
-	max_i = i;
-	max_j = j;
+     MPI_Allreduce(&start, &start_recv, 1 , MPI_C_BOOL, MPI_MIN, MPI_COMM_WORLD);
+	max_i = recv_ij.first;
+	max_j = recv_ij.second;
 	best = z;
       } else {
-	if (z.length() > best.length()) {
-	  max_i = i;
-	  max_j=j;
+
+     loc_length = z.length();
+     MPI_Allreduce(&loc_length, &recv_length, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
+
+     if (recv_length > best.length()) {
+	  max_i = recv_ij.first;
+	  max_j= recv_ij.second;
 	  best = z;
 	}
-      }
-    }
   }
   string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
   genome_tree.erase(genome_tree.begin()+max_i);
   genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
   genome_tree.push_back(make_pair(new_tree_label,best));
   }
-
 }
 
 if(myid==0){
 
-     MPI_Send(&testchar, 1, MPI_CHAR, 1,0, MPI_COMM_WORLD);
-
      // cout << "Phylogeny = " << endl;
      // cout << genome_tree[0].first << endl;
      // cout << "Root has length " << genome_tree[0].second.length() << endl;
+     // cout << "Best pair = " << max_i << " " << max_j << endl;
+     // cout << "Length = " << best.length() << endl;
 }
 
-//MPI_Status status;
 
-			//cout << "Best pair = " << max_i << " " << max_j << endl;
-			//cout << "Length = " << best.length() << endl;
 
   // Debug
   for (int i=0;i<genomes.size();i++) {
