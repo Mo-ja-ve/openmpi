@@ -192,9 +192,16 @@ int main(int argc, char *argv[]) {
   for (int i=0;i<genomes.size();i++) {
     genome_tree.push_back(make_pair(to_string(i),genomes[i]));
   }
+  cout<<endl<<"MY ID: "<<myid;
 
-  // Merge strings
-  if(myid != 0){
+  if(myid == 0){
+
+       // cout << "Phylogeny = " << endl;
+       // cout << genome_tree[0].first << endl;
+       // cout << "Root has length " << genome_tree[0].second.length() << endl;
+       // cout << "Best pair = " << max_i << " " << max_j << endl;
+       // cout << "Length = " << best.length() << endl;
+ }else{
 
        cout<<endl<<"HELLO! ";
 
@@ -255,21 +262,13 @@ int main(int argc, char *argv[]) {
   }
 }
 
-if(myid==0){
-
-     // cout << "Phylogeny = " << endl;
-     // cout << genome_tree[0].first << endl;
-     // cout << "Root has length " << genome_tree[0].second.length() << endl;
-     // cout << "Best pair = " << max_i << " " << max_j << endl;
-     // cout << "Length = " << best.length() << endl;
-}
 
 
 
   // Debug
-  for (int i=0;i<genomes.size();i++) {
-    assert(Is_subsequence(0,0,genome_tree[0].second,genomes[i]));
-  }
+  // for (int i=0;i<genomes.size();i++) {
+  //   assert(Is_subsequence(0,0,genome_tree[0].second,genomes[i]));
+  // }
 
  MPI_Finalize();
 }
