@@ -25,7 +25,7 @@
 
 using namespace std;
 
-void broadcast(vector< string> &genomes, int myid, int num_procs);
+void broadcast(vector <const char*> char_string);
 
 // This code checks whether
 // x[i..n-1] a sequence of y[j..m-1], where n is the length of
@@ -183,6 +183,13 @@ int main(int argc, char *argv[]) {
     }
   }
 
+  vector <const char*> char_string(genomes.size(), nullptr);
+
+  for(int i = 0; genomes.size(); i++){
+       char_string[i] = genomes[i].c_str();
+ }
+
+  broadcast(char_string);
 
   cout <<endl<< "Number of covid genomes = " << genomes.size()<< endl;
 
@@ -193,20 +200,9 @@ int main(int argc, char *argv[]) {
   }
   //out<<endl<<"MY ID: "<<myid;
 
-  if(myid == 0){
-       broadcast(genomes, myid, num_procs);
 
-       // cout << "Phylogeny = " << endl;
-       // cout << genome_tree[0].first << endl;
-       // cout << "Root has length " << genome_tree[0].second.length() << endl;
-       // cout << "Best pair = " << max_i << " " << max_j << endl;
-       // cout << "Length = " << best.length() << endl;
- }else{
-
-      broadcast(genomes, myid, num_procs);
 
   while (genome_tree.size() >1) {
-
        vector <pair<int,int>> proc_pair;
 
        for(int i = 0; i <genomes.size()-1; i++){
@@ -221,7 +217,7 @@ int main(int argc, char *argv[]) {
             MPI_Allreduce(&proc_pair[i], &recv_ij, 2, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
        }
 
-       cout<<endl<<"RECV_IJ: "<<recv_ij.first<<" "<<recv_ij.second;
+      cout<<endl<<"RECV_IJ: "<<recv_ij.first<<" "<<recv_ij.second;
 
     // Debugging
     //cout << "Tree size = " << genome_tree.size() << endl;
@@ -260,9 +256,14 @@ int main(int argc, char *argv[]) {
   genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
   genome_tree.push_back(make_pair(new_tree_label,best));
   }
-}
 
 
+
+// cout << "Phylogeny = " << endl;
+// cout << genome_tree[0].first << endl;
+// cout << "Root has length " << genome_tree[0].second.length() << endl;
+// cout << "Best pair = " << max_i << " " << max_j << endl;
+// cout << "Length = " << best.length() << endl;
 
 
   // Debug
@@ -274,35 +275,15 @@ int main(int argc, char *argv[]) {
 }
 
 
-void broadcast(vector <string> &genomes, int myid, int num_procs){
-//
-//
-//   char *tempc = new char[genome_tree[0].second.size() + 1];
-//   copy(genome_tree[0].second.begin(), genome_tree[0].second.end(), tempc);
-//   tempc[genome_tree[0].second.size()] = '\0';
-//   int n = genome_tree.size();
-//
-//   //MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
-//
-//   //cout<<endl<<"genome tree: "<<genome_tree[0].second.size();
-//
-//   MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
-// char *tempc = new char[genome_tree[0].second.size() + 1];
-// copy(genome_tree[0].second.begin(), genome_tree[0].second.end(), tempc);
-// tempc[genome_tree[0].second.size()] = '\0';
-//
+void broadcast(vector <const char*> char_string){
 
   //  set all this up based off slide notes
   int buffer[2];
-  buffer[0] = genomes.size();
+  buffer[0] = char_string.size();
 
   MPI_Bcast(buffer, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
-  genomes.resize(buffer[0]);
+  char_string.resize(buffer[0]);
 
-  for(int i = 0; i < genomes.size(); i++){
-
-    MPI_Bcast(&genomes[i][0], genomes.at(i).size(), MPI_CHAR, 0, MPI_COMM_WORLD );
-  }
-
+   MPI_Bcast(&char_string[0], buffer[0], MPI_CHAR, 0, MPI_COMM_WORLD );
 }
