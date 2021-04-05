@@ -190,7 +190,7 @@ int main(int argc, char *argv[]) {
      for(int i = 0; genomes.size(); i++){
 
        vector <char> char_string;
-       char_string.resize(genomes[i].size());
+       //char_string.resize(genomes[i].size());
        //(genomes[i].begin(), genomes[i].end());
  // broadcast(char_string);
  //       string temp(char_string.begin(),char_string.end());
