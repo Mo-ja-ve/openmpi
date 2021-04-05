@@ -25,7 +25,7 @@
 
 using namespace std;
 
-void broadcast(vector <char*> char_string);
+void broadcast(vector <char> char_string);
 
 // This code checks whether
 // x[i..n-1] a sequence of y[j..m-1], where n is the length of
@@ -183,19 +183,24 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  vector <char*> char_string(genomes.size(), nullptr);
+  int num_genomes = genomes.size();
+  MPI_Bcast(&num_genomes, 1, MPI_INT, 0, MPI_COMM_WORLD);
+  genomes.resize(num_genomes);
 
   for(int i = 0; genomes.size(); i++){
-       char_string[i] = genomes[i].c_str();
+
+       vector <char> char_string(genomes[i].begin(), genomes[i].end());
+       broadcast(char_string);
+       string temp(char_string.begin(),char_string.end());
+       genomes[i] = temp;
  }
 
-  broadcast(char_string);
 
-  cout<<endl<<"char_string size: 1  "<<char_string.size();
+  cout<<endl<<"genomes size: 1  "<<genomes[0];
 
   //cout<<endl<<"char_string size: 2  "<<char_string[0];
 
-  //cout<<endl<<"char_string size: 3  "<<char_string[1];
+ // cout<<endl<<"char_string size: 3  "<<char_string[1];
 
 
   //vector <string> restring_genomes;
@@ -288,7 +293,7 @@ int main(int argc, char *argv[]) {
  MPI_Finalize();
 }
 
-void broadcast(vector <char*> char_string){
+void broadcast(vector <char> char_string){
 
   //  set all this up based off slide notes
   int buffer[2];
