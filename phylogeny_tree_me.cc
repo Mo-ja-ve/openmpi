@@ -196,6 +196,8 @@ int main(int argc, char *argv[]) {
   // Merge strings
   if(myid != 0){
 
+       cout<<endl<<"HELLO! ";
+
   while (genome_tree.size() >1) {
 
        vector <pair<int,int>> proc_pair;
