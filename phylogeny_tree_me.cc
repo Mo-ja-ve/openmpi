@@ -188,8 +188,8 @@ int main(int argc, char *argv[]) {
   genomes.resize(num_genomes);
 
      for(int i = 0; genomes.size(); i++){
- //
- //       vector <char> char_string(genomes[i].begin(), genomes[i].end());
+
+       vector <char> char_string(genomes[i].begin(), genomes[i].end());
  //       broadcast(char_string);
  //       string temp(char_string.begin(),char_string.end());
  //       genomes[i] = temp;
