@@ -187,11 +187,9 @@ int main(int argc, char *argv[]) {
   MPI_Bcast(&num_genomes, 1, MPI_INT, 0, MPI_COMM_WORLD);
   genomes.resize(num_genomes);
 
-     for(int i = 0; genomes.size(); i++){
+     for(int i = 0; i < genomes.size(); i++){
 
-       vector <char> char_string;
-       //char_string.resize(genomes[i].size());
-       //(genomes[i].begin(), genomes[i].end());
+       vector <char> char_string(genomes[i].begin(), genomes[i].end());
  // broadcast(char_string);
  //       string temp(char_string.begin(),char_string.end());
  //       genomes[i] = temp;
