@@ -190,11 +190,10 @@ int main(int argc, char *argv[]) {
      for(int i = 0; i < genomes.size(); i++){
 
        vector <char> char_string(genomes[i].begin(), genomes[i].end());
- // broadcast(char_string);
- //       string temp(char_string.begin(),char_string.end());
- //       genomes[i] = temp;
+       broadcast(char_string);
+       string temp(char_string.begin(),char_string.end());
+       genomes[i] = temp;
      }
-
 
   //cout<<endl<<"genomes size: 1  "<<genomes[0];
 
