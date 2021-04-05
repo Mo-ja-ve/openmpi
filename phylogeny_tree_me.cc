@@ -191,71 +191,71 @@ int main(int argc, char *argv[]) {
 
   broadcast(char_string);
 
-  cout <<endl<< "Number of covid genomes = " << genomes.size()<< endl;
-
-  // Make initial labels on all strings
-  vector<pair<string,string> > genome_tree;
-  for (int i=0;i<genomes.size();i++) {
-    genome_tree.push_back(make_pair(to_string(i),genomes[i]));
-  }
-  //out<<endl<<"MY ID: "<<myid;
-
-
-
-  while (genome_tree.size() >1) {
-       vector <pair<int,int>> proc_pair;
-
-       for(int i = 0; i <genomes.size()-1; i++){
-            for(int j = i+1; j < genomes.size(); j++){
-                 proc_pair.push_back(make_pair(i,j));
-            }
-       }
-
-       pair<int,int> recv_ij;
-       for(int i = myid; i < proc_pair.size(); i+=num_procs){
-
-            MPI_Allreduce(&proc_pair[i], &recv_ij, 2, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
-       }
-
-      cout<<endl<<"RECV_IJ: "<<recv_ij.first<<" "<<recv_ij.second;
-
-    // Debugging
-    //cout << "Tree size = " << genome_tree.size() << endl;
-
-  int max_i;
-  int max_j;
-  string best;
-
-  bool start = true;
-  bool start_recv = start;
-  int loc_length, recv_length;
-
-    //cout << "i = " << i << endl;
-      string z;
-      z=compute_LCS(genome_tree[recv_ij.first].second, genome_tree[recv_ij.second].second);
-
-      if (start_recv) {
-	start = false;
-     MPI_Allreduce(&start, &start_recv, 1 , MPI_C_BOOL, MPI_MIN, MPI_COMM_WORLD);
-	max_i = recv_ij.first;
-	max_j = recv_ij.second;
-	best = z;
-      } else {
-
-     loc_length = z.length();
-     MPI_Allreduce(&loc_length, &recv_length, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
-
-     if (recv_length > best.length()) {
-	  max_i = recv_ij.first;
-	  max_j= recv_ij.second;
-	  best = z;
-	}
-  }
-  string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
-  genome_tree.erase(genome_tree.begin()+max_i);
-  genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
-  genome_tree.push_back(make_pair(new_tree_label,best));
-  }
+  // cout <<endl<< "Number of covid genomes = " << genomes.size()<< endl;
+  //
+  // // Make initial labels on all strings
+  // vector<pair<string,string> > genome_tree;
+  // for (int i=0;i<genomes.size();i++) {
+  //   genome_tree.push_back(make_pair(to_string(i),genomes[i]));
+  // }
+  // //out<<endl<<"MY ID: "<<myid;
+  //
+  //
+  //
+  // while (genome_tree.size() >1) {
+  //      vector <pair<int,int>> proc_pair;
+  //
+  //      for(int i = 0; i <genomes.size()-1; i++){
+  //           for(int j = i+1; j < genomes.size(); j++){
+  //                proc_pair.push_back(make_pair(i,j));
+  //           }
+  //      }
+  //
+  //      pair<int,int> recv_ij;
+  //      for(int i = myid; i < proc_pair.size(); i+=num_procs){
+  //
+  //           MPI_Allreduce(&proc_pair[i], &recv_ij, 2, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+  //      }
+  //
+  //     cout<<endl<<"RECV_IJ: "<<recv_ij.first<<" "<<recv_ij.second;
+  //
+  //   // Debugging
+  //   //cout << "Tree size = " << genome_tree.size() << endl;
+  //
+  // int max_i;
+  // int max_j;
+  // string best;
+  //
+  // bool start = true;
+  // bool start_recv = start;
+  // int loc_length, recv_length;
+  //
+  //   //cout << "i = " << i << endl;
+  //     string z;
+  //     z=compute_LCS(genome_tree[recv_ij.first].second, genome_tree[recv_ij.second].second);
+  //
+  //     if (start_recv) {
+	// start = false;
+  //    MPI_Allreduce(&start, &start_recv, 1 , MPI_C_BOOL, MPI_MIN, MPI_COMM_WORLD);
+	// max_i = recv_ij.first;
+	// max_j = recv_ij.second;
+	// best = z;
+  //     } else {
+  //
+  //    loc_length = z.length();
+  //    MPI_Allreduce(&loc_length, &recv_length, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
+  //
+  //    if (recv_length > best.length()) {
+	//   max_i = recv_ij.first;
+	//   max_j= recv_ij.second;
+	//   best = z;
+	// }
+  // }
+  // string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
+  // genome_tree.erase(genome_tree.begin()+max_i);
+  // genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
+  // genome_tree.push_back(make_pair(new_tree_label,best));
+  // }
 
 
 
@@ -273,7 +273,6 @@ int main(int argc, char *argv[]) {
 
  MPI_Finalize();
 }
-
 
 void broadcast(vector <const char*> char_string){
 
