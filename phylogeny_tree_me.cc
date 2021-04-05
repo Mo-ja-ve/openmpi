@@ -193,9 +193,9 @@ int main(int argc, char *argv[]) {
 
   cout<<endl<<"char_string size: 1  "<<char_string.size();
 
-  cout<<endl<<"char_string size: 2  "<<char_string[0];
+  //cout<<endl<<"char_string size: 2  "<<char_string[0];
 
-  cout<<endl<<"char_string size: 3  "<<char_string[1];
+  //cout<<endl<<"char_string size: 3  "<<char_string[1];
 
 
   //vector <string> restring_genomes;
