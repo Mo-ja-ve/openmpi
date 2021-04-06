@@ -195,9 +195,6 @@ int main(int argc, char *argv[]) {
        genomes[i] = temp;
      }
 
-if(myid == 1){
-  cout<<endl<<"genomes size: 1  "<<genomes[1];
-}
   //cout<<endl<<"char_string size: 2  "<<char_string[0];
 
  // cout<<endl<<"char_string size: 3  "<<char_string[1];
@@ -210,7 +207,7 @@ if(myid == 1){
  //}
 
   //
-  // cout <<endl<< "Number of covid genomes = " << genomes.size()<< endl;
+  cout <<endl<< "Number of covid genomes = " << genomes.size()<< endl;
   //
   // // Make initial labels on all strings
   // vector<pair<string,string> > genome_tree;
