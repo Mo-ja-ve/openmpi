@@ -25,7 +25,7 @@
 
 using namespace std;
 
-void broadcast(vector <char> char_string);
+void broadcast(vector <char> &char_string);
 
 // This code checks whether
 // x[i..n-1] a sequence of y[j..m-1], where n is the length of
@@ -284,7 +284,7 @@ int main(int argc, char *argv[]) {
  MPI_Finalize();
 }
 
-void broadcast(vector <char> char_string){
+void broadcast(vector <char> &char_string){
 
   //  set all this up based off slide notes
   int buffer[2];
