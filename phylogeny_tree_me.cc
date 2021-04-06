@@ -235,8 +235,9 @@ int main(int argc, char *argv[]) {
 
       if(loc_length == global_longest){
 
-           MPI_Allreduce(&i, &max_i, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
-           MPI_Allreduce(&j, &max_j, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+           MPI_Allreduce(&i, &max_i, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
+           MPI_Allreduce(&j, &max_j, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
+           
            cout<<endl<<"hello! ";
            cout<<endl<<"MAX I: "<<max_i;
            cout<<endl<<"MAX J: "<<max_j;
