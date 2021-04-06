@@ -254,9 +254,7 @@ int main(int argc, char *argv[]) {
      }
 
      }
-     cout<<endl<<"before tree erasing hello!: "<<myid;
-     string best_temp(char_best.begin(), char_best.end());
-     best = best_temp;
+
      cout<<endl<<"BEST: "<<best;
 
      // cout<<endl<<"MAX I: "<<max_i;
