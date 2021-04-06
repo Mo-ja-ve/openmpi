@@ -234,18 +234,18 @@ int main(int argc, char *argv[]) {
 
       //cout<<endl<<"my id: "<<myid<<"LOCAL LENGTH:  "<<loc_length<<"LONGEST LENGTH  "<<global_longest;
 
+      MPI_Allreduce(&i, &max_i, 1, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
+      MPI_Allreduce(&j, &max_j, 1, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
+      //
+
       if(loc_length == global_longest){
 
            //max_i = i;
            //max_j = j;
+           // cout<<endl<<"MAX I: "<<max_i;
            cout<<endl<<"I: "<<i;
            cout<<endl<<"J: "<<j;
-
-           MPI_Allreduce(&i, &max_i, 1, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
-           MPI_Allreduce(&j, &max_j, 1, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
-           //
            // cout<<endl<<"hello! ";
-           // cout<<endl<<"MAX I: "<<max_i;
            // cout<<endl<<"MAX J: "<<max_j;
            copy(z.begin(), z.end(), back_inserter(char_best));
            int size2[2];
@@ -266,9 +266,9 @@ int main(int argc, char *argv[]) {
 
      //cout<<endl<<"BEST: "<<best;
 
-     //cout<<endl<<"MAX I: "<<max_i;
+     cout<<endl<<"MAX I: "<<max_i;
      //
-     //cout<<endl<<"MAX J: "<<max_j;
+     cout<<endl<<"MAX J: "<<max_j;
      // string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
      // genome_tree.erase(genome_tree.begin()+max_i);
      // genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
