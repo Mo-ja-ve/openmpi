@@ -225,6 +225,10 @@ int main(int argc, char *argv[]) {
          //cout<<endl<<"K: "<<k;
       int i = proc_pair[k].first;
       int j = proc_pair[k].second;
+
+      cout<<endl<<"I: "<<i;
+      cout<<endl<<"J: "<<j;
+
       string z;
       z=compute_LCS(genome_tree[i].second, genome_tree[j].second);
 
@@ -258,7 +262,7 @@ int main(int argc, char *argv[]) {
 
      }
 
-     cout<<endl<<best;
+     //cout<<endl<<best;
 
      //cout<<endl<<"BEST: "<<best;
 
