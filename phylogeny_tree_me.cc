@@ -207,13 +207,13 @@ int main(int argc, char *argv[]) {
 
        vector <pair<int,int>> proc_pair;
 
-       for(int i = 0; i <genomes.size()-1; i++){
-            for(int j = i+1; j < genomes.size(); j++){
+       for(int i = 0; i <genome_tree.size()-1; i++){
+            for(int j = i+1; j < genome_tree.size(); j++){
                  proc_pair.push_back(make_pair(i,j));
             }
        }
-  int max_i;
-  int max_j;
+  int max_i = 0;
+  int max_j = 0;
   string best;
 
   bool start = true;
@@ -230,14 +230,20 @@ int main(int argc, char *argv[]) {
       loc_length=z.length();
       MPI_Allreduce(&loc_length, &global_longest, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
 
-      cout<<endl<<"my id: "<<myid<<"LOCAL LENGTH:  "<<loc_length<<"LONGEST LENGTH  "<<global_longest;
+      //cout<<endl<<"my id: "<<myid<<"LOCAL LENGTH:  "<<loc_length<<"LONGEST LENGTH  "<<global_longest;
+
+      if(loc_length == global_longest){
+           MPI_Allreduce(&i, &max_i, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+           MPI_Allreduce(&j, &max_j, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+      }
 
      }
-  }
-  // string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
-  // genome_tree.erase(genome_tree.begin()+max_i);
-  // genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
-  // genome_tree.push_back(make_pair(new_tree_label,best));
+
+  string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
+  genome_tree.erase(genome_tree.begin()+max_i);
+  genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
+  genome_tree.push_back(make_pair(new_tree_label,best));
+}
 
   // cout << "Phylogeny = " << endl;
 // cout << genome_tree[0].first << endl;
