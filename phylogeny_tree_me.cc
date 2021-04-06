@@ -252,8 +252,8 @@ int main(int argc, char *argv[]) {
 
      }
      cout<<endl<<"before tree erasing hello!: "<<myid;
-     // string best_temp(char_best.begin(), char_best.end());
-     // best = best_temp;
+     string best_temp(char_best.begin(), char_best.end());
+     best = best_temp;
 
   // string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
   // genome_tree.erase(genome_tree.begin()+max_i);
