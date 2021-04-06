@@ -243,8 +243,8 @@ int main(int argc, char *argv[]) {
            //max_i = i;
            //max_j = j;
            // cout<<endl<<"MAX I: "<<max_i;
-           cout<<endl<<"I: "<<i;
-           cout<<endl<<"J: "<<j;
+           //cout<<endl<<"I: "<<i;
+           //cout<<endl<<"J: "<<j;
            // cout<<endl<<"hello! ";
            // cout<<endl<<"MAX J: "<<max_j;
            copy(z.begin(), z.end(), back_inserter(char_best));
@@ -261,14 +261,15 @@ int main(int argc, char *argv[]) {
      }
 
      }
-
-     //cout<<endl<<best;
+     string best_temp(char_best.begin(), char_best.end());
+     best = best_temp;
+     cout<<endl<<best;
 
      //cout<<endl<<"BEST: "<<best;
 
-     cout<<endl<<"MAX I: "<<max_i;
+     //cout<<endl<<"MAX I: "<<max_i;
      //
-     cout<<endl<<"MAX J: "<<max_j;
+     //cout<<endl<<"MAX J: "<<max_j;
      // string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
      // genome_tree.erase(genome_tree.begin()+max_i);
      // genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
