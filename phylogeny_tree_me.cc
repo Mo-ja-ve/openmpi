@@ -244,7 +244,8 @@ int main(int argc, char *argv[]) {
            copy(z.begin(), z.end(), back_inserter(char_best));
            int size2[2];
            size2[0] = char_best.size();
-           MPI_Bcast(size2, 1, MPI_INT, 0, MPI_COMM_WORLD);
+           
+           MPI_Bcast(size2, 1, MPI_INT, myid, MPI_COMM_WORLD);
            char_best.resize(size2[0]);
            MPI_Bcast(&char_best[0], size2[0], MPI_CHAR, myid, MPI_COMM_WORLD);
            //for (const char &c: char_best)
