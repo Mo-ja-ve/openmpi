@@ -226,9 +226,6 @@ int main(int argc, char *argv[]) {
       int i = proc_pair[k].first;
       int j = proc_pair[k].second;
 
-      cout<<endl<<"I: "<<i;
-      cout<<endl<<"J: "<<j;
-
       string z;
       z=compute_LCS(genome_tree[i].second, genome_tree[j].second);
 
@@ -241,6 +238,9 @@ int main(int argc, char *argv[]) {
 
            //max_i = i;
            //max_j = j;
+           cout<<endl<<"I: "<<i;
+           cout<<endl<<"J: "<<j;
+
            MPI_Allreduce(&i, &max_i, 1, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
            MPI_Allreduce(&j, &max_j, 1, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
            //
