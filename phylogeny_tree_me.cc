@@ -215,6 +215,7 @@ int main(int argc, char *argv[]) {
   int max_i = 0;
   int max_j = 0;
   string best;
+  vector <char> char_best;
 
   bool start = true;
 
@@ -235,10 +236,18 @@ int main(int argc, char *argv[]) {
       if(loc_length == global_longest){
            MPI_Allreduce(&i, &max_i, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
            MPI_Allreduce(&j, &max_j, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
-      }
+
+           copy(z.begin(), z.end(), back_inserter(char_best));
+           int size2[2];
+           size2[0] = char_best.size();
+           MPI_Bcast(&char_best[0], size2[0], MPI_CHAR, myid, MPI_COMM_WORLD);
+     }
 
      }
      cout<<endl<<"before tree erasing hello!: "<<myid;
+     string best_temp(char_best.begin(), char_best.end());
+     best = best_temp;
+
   string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
   genome_tree.erase(genome_tree.begin()+max_i);
   genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
@@ -269,5 +278,6 @@ void broadcast(vector <char> &char_string){
   MPI_Bcast(buffer, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
   char_string.resize(buffer[0]);
+
    MPI_Bcast(&char_string[0], buffer[0], MPI_CHAR, 0, MPI_COMM_WORLD );
 }
