@@ -235,6 +235,8 @@ int main(int argc, char *argv[]) {
 
       if(loc_length == global_longest){
 
+           max_i = i;
+           max_j = j;
            MPI_Allreduce(&i, &max_i, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
            MPI_Allreduce(&j, &max_j, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
            //
@@ -244,7 +246,7 @@ int main(int argc, char *argv[]) {
            copy(z.begin(), z.end(), back_inserter(char_best));
            int size2[2];
            size2[0] = char_best.size();
-           
+
            MPI_Bcast(size2, 1, MPI_INT, myid, MPI_COMM_WORLD);
            char_best.resize(size2[0]);
            MPI_Bcast(&char_best[0], size2[0], MPI_CHAR, myid, MPI_COMM_WORLD);
@@ -256,11 +258,11 @@ int main(int argc, char *argv[]) {
 
      }
 
-     cout<<endl<<"BEST: "<<best;
+     //cout<<endl<<"BEST: "<<best;
 
-     // cout<<endl<<"MAX I: "<<max_i;
+     cout<<endl<<"MAX I: "<<max_i;
      //
-     // cout<<endl<<"MAX J: "<<max_j;
+     cout<<endl<<"MAX J: "<<max_j;
   //string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
   //genome_tree.erase(genome_tree.begin()+max_i);
   //genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
