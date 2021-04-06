@@ -195,25 +195,19 @@ int main(int argc, char *argv[]) {
        genomes[i] = temp;
      }
 
-  //cout<<endl<<"char_string size: 2  "<<char_string[0];
-
- // cout<<endl<<"char_string size: 3  "<<char_string[1];
-
-
-  //vector <string> restring_genomes;
-  //restring_genomes.resize(char_string.size());
-  //for(int i = 0; i < restring_genomes.size(); i++){
-      // restring_genomes[i](char_string[i].begin(), char_string[i].end());
- //}
+     if(myid == 1){
+          cout<<endl<<"GENOMES 1: "<<genomes.size();
+     }
 
   //
   cout <<endl<< "Number of covid genomes = " << genomes.size()<< endl;
-  //
-  // // Make initial labels on all strings
-  // vector<pair<string,string> > genome_tree;
-  // for (int i=0;i<genomes.size();i++) {
-  //   genome_tree.push_back(make_pair(to_string(i),genomes[i]));
-  // }
+
+  // Make initial labels on all strings
+  vector<pair<string,string> > genome_tree;
+  for (int i=0;i<genomes.size();i++) {
+    genome_tree.push_back(make_pair(to_string(i),genomes[i]));
+  }
+
   // cout<<endl<<"MY ID: "<<myid;
   //
   //
@@ -299,6 +293,5 @@ void broadcast(vector <char> char_string){
   MPI_Bcast(buffer, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
   char_string.resize(buffer[0]);
-
    MPI_Bcast(&char_string[0], buffer[0], MPI_CHAR, 0, MPI_COMM_WORLD );
 }
