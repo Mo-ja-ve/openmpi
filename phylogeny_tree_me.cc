@@ -220,7 +220,7 @@ int main(int argc, char *argv[]) {
   bool global_start = start;
   int loc_length, recv_length;
 
-    //cout << "i = " << i << endl;
+    cout << "i = " << i << endl;
 
     for(int k = myid; k < proc_pair.size(); k = k + num_procs){
       int i = proc_pair[k].first;
