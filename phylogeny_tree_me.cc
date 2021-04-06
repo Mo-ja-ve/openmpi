@@ -197,6 +197,7 @@ int main(int argc, char *argv[]) {
 
      if(myid == 1){
           cout<<endl<<"GENOMES 1: "<<genomes.size();
+          cout<<endl<<"GENOMES 1: "<<genomes[0];
      }
 
   //
