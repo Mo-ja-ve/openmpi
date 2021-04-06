@@ -235,10 +235,10 @@ int main(int argc, char *argv[]) {
 
       if(loc_length == global_longest){
 
-           max_i = i;
-           max_j = j;
-           MPI_Allreduce(&i, &max_i, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
-           MPI_Allreduce(&j, &max_j, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
+           //max_i = i;
+           //max_j = j;
+           MPI_Allreduce(i, &max_i, 1, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
+           MPI_Allreduce(j, &max_j, 1, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
            //
            // cout<<endl<<"hello! ";
            // cout<<endl<<"MAX I: "<<max_i;
