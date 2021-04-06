@@ -195,8 +195,9 @@ int main(int argc, char *argv[]) {
        genomes[i] = temp;
      }
 
+if(myid == 1){
   cout<<endl<<"genomes size: 1  "<<genomes[0];
-
+}
   //cout<<endl<<"char_string size: 2  "<<char_string[0];
 
  // cout<<endl<<"char_string size: 3  "<<char_string[1];
