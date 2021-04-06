@@ -217,42 +217,29 @@ int main(int argc, char *argv[]) {
   string best;
 
   bool start = true;
-  bool global_start = start;
-  int loc_length, recv_length;
 
-
+  int loc_length, global_longest;
 
     for(int k = myid; k < proc_pair.size(); k = k + num_procs){
-         cout<<endl<<"K: "<<k;
+         //cout<<endl<<"K: "<<k;
       int i = proc_pair[k].first;
       int j = proc_pair[k].second;
       string z;
       z=compute_LCS(genome_tree[i].second, genome_tree[j].second);
 
-      if (global_start) {
-           cout<<endl<<"START: "<<global_start;
-	start = false;
-     MPI_Allreduce(&start, &global_start, 1, MPI_C_BOOL, MPI_LAND, MPI_COMM_WORLD);
-     max_i = i;
-	max_j = j;
-	best = z;
-      } else {
-           cout<<endl<<"START = FLASE"<<global_start;
-     if (z.length() > best.length()) {
-	  max_i = i;
-	  max_j = j;
-	  best = z;
-	}
+      loc_length=z.length();
+      MPI_Allreduce(&loc_length, &global_longest, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
+
+      cout<<endl<<"my id: "<<myid<<"LOCAL LENGTH:  "<<loc_length<<"LONGEST LENGTH  "<<global_longest;
+
      }
   }
-  string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
-  genome_tree.erase(genome_tree.begin()+max_i);
-  genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
-  genome_tree.push_back(make_pair(new_tree_label,best));
-  }
+  // string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
+  // genome_tree.erase(genome_tree.begin()+max_i);
+  // genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
+  // genome_tree.push_back(make_pair(new_tree_label,best));
 
-
-// cout << "Phylogeny = " << endl;
+  // cout << "Phylogeny = " << endl;
 // cout << genome_tree[0].first << endl;
 // cout << "Root has length " << genome_tree[0].second.length() << endl;
 // cout << "Best pair = " << max_i << " " << max_j << endl;
