@@ -270,6 +270,9 @@ int main(int argc, char *argv[]) {
                largest_lcs[i][2] = max_j;
 
           }
+
+          cout<<endl<<"after foor loop"<<"  my id: "<<myid;
+
           int temp_lcs;
           int temp_max_i;
           int temp_max_j;
