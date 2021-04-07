@@ -287,8 +287,8 @@ int main(int argc, char *argv[]) {
           cout << "Phylogeny = " << endl;
           cout << genome_tree[0].first << endl;
           cout << "Root has length " << genome_tree[0].second.length() << endl;
-          cout << "Best pair = " << max_i << " " << max_j << endl;
-          cout << "Length = " << best.length() << endl;
+          // cout << "Best pair = " << max_i << " " << max_j << endl;
+          // cout << "Length = " << best.length() << endl;
      }
 
   // Debug
