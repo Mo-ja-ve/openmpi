@@ -215,7 +215,7 @@ int main(int argc, char *argv[]) {
        }
   int max_i = 0;
   int max_j = 0;
-  string best;
+  //string best;
   vector <char> char_best;
 
   int proc_longestLCS;
@@ -265,6 +265,10 @@ int main(int argc, char *argv[]) {
 
 
      if(myid == 0){
+
+          int loc_length;
+          int max_i;
+          int max_j;
 
           vector <vector <int>> largest_lcs;
           largest_lcs.resize(num_procs-1);
@@ -324,7 +328,7 @@ int main(int argc, char *argv[]) {
      // cout<<endl<<"my proc id"<<myid<<"max i: "<<max_i;
      // cout<<endl<<"my proc id"<<myid<<"max j: "<<max_j;
 
-     best = compute_LCS(genome_tree[max_i].second, genome_tree[max_j].second);
+     string best = compute_LCS(genome_tree[max_i].second, genome_tree[max_j].second);
 
      string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
      genome_tree.erase(genome_tree.begin()+max_i);
