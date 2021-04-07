@@ -198,7 +198,7 @@ int main(int argc, char *argv[]) {
     genome_tree.push_back(make_pair(to_string(i),genomes[i]));
   }
 
-  cout<<endl<<"length: "<<genome_tree[0].second.length();
+  //cout<<endl<<"length: "<<genome_tree[0].second.length();
 
   while (genome_tree.size() >1 ) {
 
@@ -331,7 +331,7 @@ int main(int argc, char *argv[]) {
      cout<<endl<<"size :"<<genome_tree.size();
      }
 
-     if(genome_tree.size() == 2){
+     //if(genome_tree.size() == 2){
           if(myid == 1){
                cout << "Phylogeny = " << endl;
                cout << genome_tree[0].first << endl;
@@ -339,7 +339,7 @@ int main(int argc, char *argv[]) {
           // cout << "Best pair = " << max_i << " " << max_j << endl;
           // cout << "Length = " << best.length() << endl;
           }
-     }
+     //}
 
 
   // Debug
