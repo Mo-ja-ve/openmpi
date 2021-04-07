@@ -222,7 +222,7 @@ int main(int argc, char *argv[]) {
   bool start = true;
   int loc_length, global_longest;
   if(myid != 0){
-    for(int k = myid; k < proc_pair.size(); k = k + num_procs){
+    for(int k = myid-1; k < proc_pair.size(); k = k + num_procs){
          //cout<<endl<<"K: "<<k;
       int i = proc_pair[k].first;
       int j = proc_pair[k].second;
