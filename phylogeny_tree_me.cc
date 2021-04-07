@@ -282,6 +282,7 @@ int main(int argc, char *argv[]) {
      genome_tree.erase(genome_tree.begin()+max_i);
      genome_tree.erase(genome_tree.begin()+max_j); // max_i got deleted!
      genome_tree.push_back(make_pair(new_tree_label,best));
+     cout<<endl<<"SIZE: "<<genome_tree.size();
 }
      if(myid == 0){
           cout << "Phylogeny = " << endl;
