@@ -296,8 +296,8 @@ int main(int argc, char *argv[]) {
 
           max_i = largest_lcs[0][1];
           max_j = largest_lcs[0][2];
-          cout<<endl<<"max i: "<<max_i;
-          cout<<endl<<"max j: "<<max_j;
+          // cout<<endl<<"max i: "<<max_i;
+          // cout<<endl<<"max j: "<<max_j;
 
           for(int i = 1; i < num_procs; i++){
                MPI_Send(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
@@ -308,8 +308,8 @@ int main(int argc, char *argv[]) {
      }
 
      if(myid !=0){
-     // int max_i;
-     // int max_j;
+     int max_i;
+     int max_j;
      MPI_Recv(&max_i, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
      MPI_Recv(&max_j, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
