@@ -245,7 +245,7 @@ int main(int argc, char *argv[]) {
      string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
      genome_tree.erase(genome_tree.begin()+max_i);
      genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
-     genome_tree.push_back(make_pair(new_tree_label,best));
+     // genome_tree.push_back(make_pair(new_tree_label,best));
 }
 
   // cout << "Phylogeny = " << endl;
