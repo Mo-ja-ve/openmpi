@@ -254,10 +254,11 @@ int main(int argc, char *argv[]) {
 
      if(myid == 0){
 
-          //cout<<endl<<"HELLO!";
+          cout<<endl<<"proc pair size: "<<proc_pair.size();
+          cout<<endl<<"genome tree size:  "<<genome_tree.size();
 
           vector <vector <int>> largest_lcs;
-          largest_lcs.resize(num_procs);
+          largest_lcs.resize(proc_pair.size());
           for(int j = 0; j < largest_lcs.size(); j++){
                largest_lcs[j].resize(3);
           }
