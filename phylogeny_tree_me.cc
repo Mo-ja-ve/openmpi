@@ -233,7 +233,7 @@ int main(int argc, char *argv[]) {
       loc_length=z.length();
       proc_longestLCS = MPI_Allreduce(&loc_length, &global_longest, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
 
-      cout<<endl<<"LONGEST LCS: "<<proc_longestLCS;
+      //cout<<endl<<"LONGEST LCS: "<<proc_longestLCS;
 
       max_i = proc_pair[proc_longestLCS].first;
       max_j = proc_pair[proc_longestLCS].second;
@@ -274,6 +274,11 @@ int main(int argc, char *argv[]) {
      //cout<<endl<<"MAX I: "<<max_i;
      //cout<<endl<<"MAX J: "<<max_j;
 
+     if(myid == 4){
+
+          cout<<endl<<"rank 4 I: "<<max_i;
+          cout<<endl<<"rank 4 J: "<<max_j;
+     }
      string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
      genome_tree.erase(genome_tree.begin()+max_i);
      genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
