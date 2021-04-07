@@ -274,7 +274,7 @@ int main(int argc, char *argv[]) {
      //cout<<endl<<"MAX I: "<<max_i;
      //cout<<endl<<"MAX J: "<<max_j;
 
-     cout<<endl<<"genome tree start "<<genome_tree.begin();
+     //cout<<endl<<"genome tree start "<<genome_tree.begin();
 
      string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
      genome_tree.erase(genome_tree.begin()+max_i);
