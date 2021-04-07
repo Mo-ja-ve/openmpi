@@ -204,7 +204,7 @@ int main(int argc, char *argv[]) {
   }
 
 
-  if(myid !=0){
+
   while (genome_tree.size() >1) {
 
        vector <pair<int,int>> proc_pair;
@@ -224,6 +224,7 @@ int main(int argc, char *argv[]) {
   bool start = true;
 
   int loc_length, global_longest;
+  if(myid != 0){
     for(int k = myid-1; k < proc_pair.size(); k = k + num_procs-1){
          //cout<<endl<<"K: "<<k;
       int i = proc_pair[k].first;
@@ -245,15 +246,8 @@ int main(int argc, char *argv[]) {
 
      }
 
-     }
-
-
      if(myid == 0){
-          int while_counter = genome_tree.size();
-          while(while_counter > 1){
-          int loc_length;
-          int max_i;
-          int max_j;
+
 
           vector <vector <int>> largest_lcs;
           largest_lcs.resize(num_procs-1);
@@ -293,7 +287,6 @@ int main(int argc, char *argv[]) {
                     }
                }
           }
-
           max_i = largest_lcs[0][1];
           max_j = largest_lcs[0][2];
           // cout<<endl<<"max i: "<<max_i;
@@ -303,13 +296,11 @@ int main(int argc, char *argv[]) {
                MPI_Send(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
                MPI_Send(&max_j, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
           }
-          while_counter--;
-     }
      }
 
+
      if(myid !=0){
-     int max_i;
-     int max_j;
+
      MPI_Recv(&max_i, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
      MPI_Recv(&max_j, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
@@ -317,7 +308,7 @@ int main(int argc, char *argv[]) {
      // cout<<endl<<"my proc id"<<myid<<"max i: "<<max_i;
      // cout<<endl<<"my proc id"<<myid<<"max j: "<<max_j;
 
-     string best = compute_LCS(genome_tree[max_i].second, genome_tree[max_j].second);
+     best = compute_LCS(genome_tree[max_i].second, genome_tree[max_j].second);
 
      string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
      genome_tree.erase(genome_tree.begin()+max_i);
@@ -326,14 +317,17 @@ int main(int argc, char *argv[]) {
      cout<<endl<<"size :"<<genome_tree.size();
      }
 
-
-     if(myid == 1){
-          cout << "Phylogeny = " << endl;
-          cout << genome_tree[0].first << endl;
-          cout << "Root has length " << genome_tree[0].second.length() << endl;
+     if(genome_tree.size() == 1){
+          if(myid == 1){
+               cout << "Phylogeny = " << endl;
+               cout << genome_tree[0].first << endl;
+               cout << "Root has length " << genome_tree[0].second.length() << endl;
           // cout << "Best pair = " << max_i << " " << max_j << endl;
           // cout << "Length = " << best.length() << endl;
+          }
      }
+}
+
 
   // Debug
   // for (int i=0;i<genomes.size();i++) {
