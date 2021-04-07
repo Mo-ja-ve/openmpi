@@ -203,7 +203,7 @@ int main(int argc, char *argv[]) {
     genome_tree.push_back(make_pair(to_string(i),genomes[i]));
   }
 
-  if(myid != 0){
+
   while (genome_tree.size() >1) {
 
        vector <pair<int,int>> proc_pair;
@@ -258,7 +258,7 @@ int main(int argc, char *argv[]) {
           // best = best_temp;
      }
      }
-     }
+
 
      if(myid == 0){
           int max_i;
