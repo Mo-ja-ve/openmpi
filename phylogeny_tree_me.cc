@@ -203,6 +203,7 @@ int main(int argc, char *argv[]) {
     genome_tree.push_back(make_pair(to_string(i),genomes[i]));
   }
 
+  if(myid != 0){
   while (genome_tree.size() >1) {
 
        vector <pair<int,int>> proc_pair;
@@ -221,7 +222,6 @@ int main(int argc, char *argv[]) {
   int proc_smallest_i;
   bool start = true;
   int loc_length, global_longest;
-  if(myid != 0){
     for(int k = myid-1; k < proc_pair.size(); k = k + num_procs-1){
          //cout<<endl<<"K: "<<k;
       int i = proc_pair[k].first;
