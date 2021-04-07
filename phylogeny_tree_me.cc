@@ -267,7 +267,7 @@ int main(int argc, char *argv[]) {
           largest_lcs[0][2] = max_j;
 
 
-          for(int i = 1; i < num_procs; i++){
+          for(int i = 1; i < proc_pair.size(); i++){
                MPI_Recv(&loc_length, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                MPI_Recv(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                MPI_Recv(&max_j, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
@@ -324,7 +324,7 @@ int main(int argc, char *argv[]) {
 
      best = compute_LCS(genome_tree[max_i].second, genome_tree[max_j].second);
 
-     cout<<endl<<"BEST: "<<best;
+     //cout<<endl<<"BEST: "<<best;
 
      string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
      genome_tree.erase(genome_tree.begin()+max_i);
