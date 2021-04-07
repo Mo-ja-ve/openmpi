@@ -241,6 +241,9 @@ int main(int argc, char *argv[]) {
       if(myid == 4){
            cout<<endl<<"myid 4: "<<proc_pair[proc_longestLCS].first;
            cout<<endl<<"myid 4: "<<proc_pair[proc_longestLCS].second;
+
+           cout<<endl<<"max_i: "<<max_i;
+           cout<<endl<<"max j: "<<max_j;
       }
       //
 
@@ -288,10 +291,10 @@ int main(int argc, char *argv[]) {
      // }
      string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
      genome_tree.erase(genome_tree.begin()+max_i);
-     if(myid == 4){
-          cout<<endl<<"SIZE: "<<genome_tree.size();
-          cout<<endl<<"max j -1"<<max_j-1;
-     }
+     // if(myid == 4){
+     //      cout<<endl<<"SIZE: "<<genome_tree.size();
+     //      cout<<endl<<"max j -1"<<max_j-1;
+     // }
      genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
      //genome_tree.push_back(make_pair(new_tree_label,best));
 
