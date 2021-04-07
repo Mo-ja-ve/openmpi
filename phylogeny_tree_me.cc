@@ -278,12 +278,14 @@ int main(int argc, char *argv[]) {
 
      //max_j = max_j - 1;
      //best = compute_LCS(genome_tree[max_i].second, genome_tree[max_j].second);
+     // if(myid == 4){
+     //      cout<<endl<<"SIZE: "<<genome_tree.size();
+     // }
+     string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
+     genome_tree.erase(genome_tree.begin()+max_i);
      if(myid == 4){
           cout<<endl<<"SIZE: "<<genome_tree.size();
      }
-     string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
-     genome_tree.erase(genome_tree.begin()+max_i);
-
      genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
      //genome_tree.push_back(make_pair(new_tree_label,best));
 
