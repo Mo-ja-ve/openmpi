@@ -266,10 +266,10 @@ int main(int argc, char *argv[]) {
                largest_lcs[j].resize(3);
           }
 
-          for(i = 0; i < num_procs; i++){
-               MPI_Recv(&loc_length, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MIP_STATUS_IGNORE);
-               MPI_Recv(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MIP_STATUS_IGNORE);
-               MPI_Recv(&max_j, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MIP_STATUS_IGNORE);
+          for(int i = 0; i < num_procs; i++){
+               MPI_Recv(&loc_length, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+               MPI_Recv(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+               MPI_Recv(&max_j, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                largest_lcs[i][0] == loc_length;
                largest_lcs[i][1] == max_i;
                largest_lcs[i][2] == max_j;
