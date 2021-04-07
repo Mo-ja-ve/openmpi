@@ -216,9 +216,8 @@ int main(int argc, char *argv[]) {
        }
   int max_i = 0;
   int max_j = 0;
-  //string best;
-  vector <char> char_best;
-
+  string best;
+  
   int proc_longestLCS;
   int proc_smallest_i;
   bool start = true;
