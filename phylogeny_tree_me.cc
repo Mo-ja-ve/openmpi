@@ -256,9 +256,10 @@ int main(int argc, char *argv[]) {
                //std::cout << c;
           // string best_temp(char_best.begin(), char_best.end());
           // best = best_temp;
-     //}
      }
      }
+     }
+
      if(myid == 0){
           int max_i;
           int max_j;
