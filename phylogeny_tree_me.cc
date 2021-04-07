@@ -207,7 +207,7 @@ int main(int argc, char *argv[]) {
 
        vector <pair<int,int>> proc_pair;
 
-       for(int i = 0; i <genome_tree.size()-1; i++){
+       for(int i = 0; i <genome_tree.size(); i++){
             for(int j = i+1; j < genome_tree.size(); j++){
                  proc_pair.push_back(make_pair(i,j));
             }
@@ -222,7 +222,7 @@ int main(int argc, char *argv[]) {
   bool start = true;
   int loc_length, global_longest;
   if(myid != 0){
-    for(int k = myid-1; k < proc_pair.size(); k = k + num_procs){
+    for(int k = myid-1; k < proc_pair.size(); k = k + num_procs-1){
          //cout<<endl<<"K: "<<k;
       int i = proc_pair[k].first;
       int j = proc_pair[k].second;
