@@ -233,6 +233,8 @@ int main(int argc, char *argv[]) {
       loc_length=z.length();
       proc_longestLCS = MPI_Allreduce(&loc_length, &global_longest, 1, MPI_DOUBLE_INT, MPI_MAXLOC, MPI_COMM_WORLD);
 
+      cout<<endl<<"LONGEST LCS: "<<proc_longestLCS;
+
       max_i = proc_pair[proc_longestLCS].first;
       max_j = proc_pair[proc_longestLCS].second;
 
