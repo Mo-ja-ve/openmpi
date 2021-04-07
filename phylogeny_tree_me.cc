@@ -231,7 +231,7 @@ int main(int argc, char *argv[]) {
       z=compute_LCS(genome_tree[i].second, genome_tree[j].second);
 
       loc_length=z.length();
-      proc_longestLCS = MPI_Allreduce(&loc_length, &global_longest, 1, MPI_INT, MPI_MAXLOC, MPI_COMM_WORLD);
+      proc_longestLCS = MPI_Allreduce(&loc_length, &global_longest, 1, MPI_DOUBLE_INT, MPI_MAXLOC, MPI_COMM_WORLD);
 
       max_i = proc_pair[proc_longestLCS].first;
       max_j = proc_pair[proc_longestLCS].second;
