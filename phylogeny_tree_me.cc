@@ -308,8 +308,9 @@ int main(int argc, char *argv[]) {
      MPI_Recv(&max_i, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
      MPI_Recv(&max_j, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
-     cout<<endl<<"max i: "<<max_i;
-     cout<<endl<<"max j: "<<max_j;
+     cout<<endl;
+     cout<<endl<<"my proc id"<<myid<<"max i: "<<max_i;
+     cout<<endl<<"my proc id"<<myid<<"max j: "<<max_j;
 
      // best = compute_LCS(genome_tree[max_i].second, genome_tree[max_j].second);
      //
