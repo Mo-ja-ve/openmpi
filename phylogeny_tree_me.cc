@@ -205,7 +205,7 @@ int main(int argc, char *argv[]) {
 
 
 
-  while (genome_tree.size() >1) {
+  while (genome_tree.size() >1 ) {
 
        vector <pair<int,int>> proc_pair;
 
@@ -217,14 +217,14 @@ int main(int argc, char *argv[]) {
   int max_i = 0;
   int max_j = 0;
   string best;
-  
+
   int proc_longestLCS;
   int proc_smallest_i;
   bool start = true;
 
   int loc_length, global_longest;
-  if(myid != 0){
-    for(int k = myid-1; k < proc_pair.size(); k = k + num_procs-1){
+
+    for(int k = myid; k < proc_pair.size(); k = k + num_procs){
          //cout<<endl<<"K: "<<k;
       int i = proc_pair[k].first;
       int j = proc_pair[k].second;
@@ -234,34 +234,37 @@ int main(int argc, char *argv[]) {
       loc_length=z.length();
       max_i = i;
       max_j = j;
+
+      if(myid != 0){
       MPI_Send(&loc_length, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
       MPI_Send(&max_i, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
       MPI_Send(&max_j, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+     }
       //
       // cout<<endl<<max_i;
       // cout<<endl<<max_j;
-
-     }
-
      }
 
      if(myid == 0){
-
-
           vector <vector <int>> largest_lcs;
           largest_lcs.resize(num_procs-1);
           for(int j = 0; j < largest_lcs.size(); j++){
                largest_lcs[j].resize(3);
           }
 
+          largest_lcs[0][0] = loc_length;
+          largest_lcs[0][1] = max_i;
+          largest_lcs[0][2] = max_j;
+
+
           for(int i = 1; i < num_procs; i++){
                MPI_Recv(&loc_length, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                MPI_Recv(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                MPI_Recv(&max_j, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
-               largest_lcs[i-1][0] = loc_length;
-               largest_lcs[i-1][1] = max_i;
-               largest_lcs[i-1][2] = max_j;
+               largest_lcs[i][0] = loc_length;
+               largest_lcs[i][1] = max_i;
+               largest_lcs[i][2] = max_j;
 
           }
           int temp_lcs;
@@ -291,17 +294,16 @@ int main(int argc, char *argv[]) {
           // cout<<endl<<"max i: "<<max_i;
           // cout<<endl<<"max j: "<<max_j;
 
-          for(int i = 1; i < num_procs; i++){
+          for(int i = 0; i < num_procs; i++){
                MPI_Send(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
                MPI_Send(&max_j, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
           }
      }
 
-
-     if(myid !=0){
-
-     MPI_Recv(&max_i, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-     MPI_Recv(&max_j, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+     if(myid != 0){
+          MPI_Recv(&max_i, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+          MPI_Recv(&max_j, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+     }
 
      // cout<<endl;
      // cout<<endl<<"my proc id"<<myid<<"max i: "<<max_i;
@@ -316,7 +318,7 @@ int main(int argc, char *argv[]) {
      cout<<endl<<"size :"<<genome_tree.size();
      }
 
-     if(genome_tree.size() == 1){
+     if(genome_tree.size() == 2){
           if(myid == 1){
                cout << "Phylogeny = " << endl;
                cout << genome_tree[0].first << endl;
@@ -325,7 +327,6 @@ int main(int argc, char *argv[]) {
           // cout << "Length = " << best.length() << endl;
           }
      }
-}
 
 
   // Debug
