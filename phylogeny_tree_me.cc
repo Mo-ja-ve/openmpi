@@ -229,31 +229,12 @@ int main(int argc, char *argv[]) {
 
       string z;
       z=compute_LCS(genome_tree[i].second, genome_tree[j].second);
-
       loc_length=z.length();
-      proc_longestLCS = MPI_Allreduce(&loc_length, &global_longest, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
-
-      //cout<<endl<<"LONGEST LCS: "<<proc_longestLCS;
-
-      max_i = proc_pair[proc_longestLCS].first;
-      max_j = proc_pair[proc_longestLCS].second;
-
-      if(myid == 4){
-           cout<<endl<<"myid 4: "<<proc_pair[proc_longestLCS].first;
-           cout<<endl<<"myid 4: "<<proc_pair[proc_longestLCS].second;
-
-           cout<<endl<<"max_i: "<<max_i;
-           cout<<endl<<"max j: "<<max_j;
-      }
-      //
-
-      // if(loc_length == global_longest){
-      // proc_smallest_i = MPI_Allreduce(&i, &max_i, 1, MPI_INT, MPI_MINLOC, MPI_COMM_WORLD);
-      //     if(myid==proc_smallest_i){
-      //          max_i = i;
-      //          max_j = j;
-      //          MPI_Bcast(&max_i, 1, MPI_INT, proc_smallest_i, MPI_)
-      //     }
+      max_i = i;
+      max_j = j;
+      MPI_Send(&loc_length, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+      MPI_Send(&max_i, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+      MPI_Send(&max_j, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
 
 
      //MPI_Allreduce(&j, &max_j, 1, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
@@ -276,27 +257,63 @@ int main(int argc, char *argv[]) {
           // string best_temp(char_best.begin(), char_best.end());
           // best = best_temp;
      //}
-
      }
 
-     //cout<<endl<<"MAX I: "<<max_i;
-     //cout<<endl<<"MAX J: "<<max_j;
+     if(myid == 0){
+          vector <vector <int>> largest_lcs;
+          largest_lcs.resize(num_procs);
+          for(int j = 0; j < largest_lcs.size(); j++){
+               largest_lcs[j].resize(3);
+          }
 
-     //cout<<endl<<"genome tree start "<<genome_tree.begin();
+          for(i = 0; i < num_procs; i++){
+               MPI_Recv(&loc_length, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MIP_STATUS_IGNORE);
+               MPI_Recv(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MIP_STATUS_IGNORE);
+               MPI_Recv(&max_j, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MIP_STATUS_IGNORE);
+               largest_lcs[i][0] == loc_length;
+               largest_lcs[i][1] == max_i;
+               largest_lcs[i][2] == max_j;
+          }
+          int temp_lcs;
+          int temp_max_i;
+          int temp_max_j;
+          for(int i = 0; i <largest_lcs.size(); i++){
+               for(int j = i+1; j < largest_lcs.size(); j++){
+                    if(largest_lcs[i][0] < largest_lcs[j][0]){
+                         temp_lcs   = largest_lcs[i][0];
+                         temp_max_i = largest_lcs[i][1];
+                         temp_max_j = largest_lcs[i][2];
 
-     //max_j = max_j - 1;
-     //best = compute_LCS(genome_tree[max_i].second, genome_tree[max_j].second);
-     // if(myid == 4){
-     //      cout<<endl<<"SIZE: "<<genome_tree.size();
-     // }
+                         largest_lcs[i][0] = largest_lcs[j][0];
+                         largest_lcs[i][1] = largest_lcs[j][1];
+                         largest_lcs[i][2] = largest_lcs[j][2];
+
+                         largest_lcs[j][0] = temp_lcs;
+                         largest_lcs[j][1] = temp_max_i;
+                         largest_lcs[j][2] = temp_max_j;
+
+                    }
+               }
+          }
+
+          max_i = largest_lcs[0][1];
+          max_j = largest_lcs[0][2];
+
+          for(int i = 0; i < num_procs; i++){
+               MPI_Send(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
+               MPI_Send(&max_j, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
+          }
+     }
+
+     MPI_Recv(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MIP_STATUS_IGNORE);
+     MPI_Recv(&max_j, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MIP_STATUS_IGNORE);
+
+     best = compute_LCS(genome_tree[max_i].second, genome_tree[max_j].second);
+
      string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
      genome_tree.erase(genome_tree.begin()+max_i);
-     // if(myid == 4){
-     //      cout<<endl<<"SIZE: "<<genome_tree.size();
-     //      cout<<endl<<"max j -1"<<max_j-1;
-     // }
      genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
-     //genome_tree.push_back(make_pair(new_tree_label,best));
+     genome_tree.push_back(make_pair(new_tree_label,best));
 
      }
 
