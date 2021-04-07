@@ -253,12 +253,16 @@ int main(int argc, char *argv[]) {
      }
 
      if(myid == 0){
+          int proc_pair_num = 0;
 
-          cout<<endl<<"proc pair size: "<<proc_pair.size();
-          cout<<endl<<"genome tree size:  "<<genome_tree.size();
+          for(int i = 0; i <genome_tree.size(); i++){
+               for(int j = i+1; j < genome_tree.size(); j++){
+                    proc_pair_num++;
+               }
+          }
 
           vector <vector <int>> largest_lcs;
-          largest_lcs.resize(proc_pair.size());
+          largest_lcs.resize(proc_pair_num);
           for(int j = 0; j < largest_lcs.size(); j++){
                largest_lcs[j].resize(3);
           }
@@ -267,8 +271,8 @@ int main(int argc, char *argv[]) {
           largest_lcs[0][1] = max_i;
           largest_lcs[0][2] = max_j;
 
-
-          for(int i = 1; i < proc_pair.size(); i++){
+          for(int j = 1; j < num_procs; j++){
+          for(int i = j; i < proc_pair_num; j+=num_procs){
                MPI_Recv(&loc_length, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                MPI_Recv(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                MPI_Recv(&max_j, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
@@ -276,7 +280,7 @@ int main(int argc, char *argv[]) {
                largest_lcs[i][0] = loc_length;
                largest_lcs[i][1] = max_i;
                largest_lcs[i][2] = max_j;
-
+          }
           }
 
           //cout<<endl<<"after foor loop"<<"  my id: "<<myid;
