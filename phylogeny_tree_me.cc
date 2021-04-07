@@ -230,6 +230,11 @@ int main(int argc, char *argv[]) {
       string z;
       z=compute_LCS(genome_tree[i].second, genome_tree[j].second);
 
+      if(myid ==4){
+           
+           cout<<endl<<"proc 4 max_j: "<<max_j;
+      }
+
       loc_length=z.length();
       proc_longestLCS = MPI_Allreduce(&loc_length, &global_longest, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
 
