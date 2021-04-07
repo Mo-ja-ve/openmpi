@@ -285,6 +285,7 @@ int main(int argc, char *argv[]) {
      genome_tree.erase(genome_tree.begin()+max_i);
      if(myid == 4){
           cout<<endl<<"SIZE: "<<genome_tree.size();
+          cout<<endl<<"max j -1"<<max_j-1;
      }
      genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
      //genome_tree.push_back(make_pair(new_tree_label,best));
