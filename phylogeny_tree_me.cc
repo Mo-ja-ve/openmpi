@@ -328,7 +328,7 @@ int main(int argc, char *argv[]) {
 
      }
 
-     if(myid == 0){
+     if(myid == 1){
           cout << "Phylogeny = " << endl;
           cout << genome_tree[0].first << endl;
           cout << "Root has length " << genome_tree[0].second.length() << endl;
