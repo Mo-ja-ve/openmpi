@@ -277,19 +277,19 @@ int main(int argc, char *argv[]) {
      //cout<<endl<<"genome tree start "<<genome_tree.begin();
 
      //max_j = max_j - 1;
-
+     best = compute_LCS(genome_tree[max_i].second, genome_tree[max_j].second);
      string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
      genome_tree.erase(genome_tree.begin()+max_i);
      genome_tree.erase(genome_tree.begin()+max_j); // max_i got deleted!
-     // genome_tree.push_back(make_pair(new_tree_label,best));
+     genome_tree.push_back(make_pair(new_tree_label,best));
 }
-
-  // cout << "Phylogeny = " << endl;
-// cout << genome_tree[0].first << endl;
-// cout << "Root has length " << genome_tree[0].second.length() << endl;
-// cout << "Best pair = " << max_i << " " << max_j << endl;
-// cout << "Length = " << best.length() << endl;
-
+     if(myid == 0){
+          cout << "Phylogeny = " << endl;
+          cout << genome_tree[0].first << endl;
+          cout << "Root has length " << genome_tree[0].second.length() << endl;
+          cout << "Best pair = " << max_i << " " << max_j << endl;
+          cout << "Length = " << best.length() << endl;
+     }
 
   // Debug
   // for (int i=0;i<genomes.size();i++) {
