@@ -270,6 +270,11 @@ int main(int argc, char *argv[]) {
                MPI_Recv(&loc_length, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                MPI_Recv(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                MPI_Recv(&max_j, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+               cout<<endl<<"my id: "<<i<<"loc_length "<<loc_length;
+               cout<<endl<<"my id: "<<i<<"max_i "<<max_i;
+               cout<<endl<<"my id: "<<i<<"max j: "<<max_j;
+
                largest_lcs[i-1][0] == loc_length;
                largest_lcs[i-1][1] == max_i;
                largest_lcs[i-1][2] == max_j;
@@ -298,8 +303,8 @@ int main(int argc, char *argv[]) {
 
           max_i = largest_lcs[0][1];
           max_j = largest_lcs[0][2];
-          cout<<endl<<"max i: "<<max_i;
-          cout<<endl<<"max j: "<<max_j;
+          // cout<<endl<<"max i: "<<max_i;
+          // cout<<endl<<"max j: "<<max_j;
 
           for(int i = 1; i < num_procs; i++){
                MPI_Send(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
