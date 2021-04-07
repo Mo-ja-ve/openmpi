@@ -221,9 +221,9 @@ int main(int argc, char *argv[]) {
 
     for(int k = myid; k < proc_pair.size(); k = k + num_procs){
 
-      if(myid == 0){
-           cout<<endl<<"0 one";
-      }
+      // if(myid == 0){
+      //      cout<<endl<<"0 one";
+      // }
 
       int i = proc_pair[k].first;
       int j = proc_pair[k].second;
@@ -233,9 +233,9 @@ int main(int argc, char *argv[]) {
       loc_length=z.length();
       max_i = i;
       max_j = j;
-            if(myid == 0){
-                 cout<<endl<<"0 two";
-            }
+            // if(myid == 0){
+            //      cout<<endl<<"0 two";
+            // }
 
 
       if(myid != 0){
@@ -244,9 +244,9 @@ int main(int argc, char *argv[]) {
       MPI_Send(&max_j, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
      }
 
-           if(myid == 0){
-                cout<<endl<<"0 three";
-           }
+           // if(myid == 0){
+           //      cout<<endl<<"0 three";
+           // }
       //
       // cout<<endl<<max_i;
       // cout<<endl<<max_j;
@@ -254,7 +254,7 @@ int main(int argc, char *argv[]) {
 
      if(myid == 0){
 
-          cout<<endl<<"HELLO!";
+          //cout<<endl<<"HELLO!";
 
           vector <vector <int>> largest_lcs;
           largest_lcs.resize(num_procs);
@@ -278,7 +278,7 @@ int main(int argc, char *argv[]) {
 
           }
 
-          cout<<endl<<"after foor loop"<<"  my id: "<<myid;
+          //cout<<endl<<"after foor loop"<<"  my id: "<<myid;
 
           int temp_lcs;
           int temp_max_i;
@@ -323,6 +323,8 @@ int main(int argc, char *argv[]) {
      // cout<<endl<<"my proc id"<<myid<<"max j: "<<max_j;
 
      best = compute_LCS(genome_tree[max_i].second, genome_tree[max_j].second);
+
+     cout<<endl<<"BEST: "<<best;
 
      string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
      genome_tree.erase(genome_tree.begin()+max_i);
