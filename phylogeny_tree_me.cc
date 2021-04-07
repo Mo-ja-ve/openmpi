@@ -203,7 +203,7 @@ int main(int argc, char *argv[]) {
     genome_tree.push_back(make_pair(to_string(i),genomes[i]));
   }
 
-
+  cout<<endl<<"length: "<<genome_tree[0].second.length();
 
   while (genome_tree.size() >1 ) {
 
