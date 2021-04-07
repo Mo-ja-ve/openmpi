@@ -203,7 +203,8 @@ int main(int argc, char *argv[]) {
     genome_tree.push_back(make_pair(to_string(i),genomes[i]));
   }
 
-  if(myid != 0){
+
+  if(myid !=0){
   while (genome_tree.size() >1) {
 
        vector <pair<int,int>> proc_pair;
@@ -223,7 +224,6 @@ int main(int argc, char *argv[]) {
   bool start = true;
 
   int loc_length, global_longest;
-  if(myid !=0){
     for(int k = myid-1; k < proc_pair.size(); k = k + num_procs-1){
          //cout<<endl<<"K: "<<k;
       int i = proc_pair[k].first;
@@ -244,12 +244,13 @@ int main(int argc, char *argv[]) {
      }
 
      }
+
      }
-}
 
 
      if(myid == 0){
-          cout<<endl<<"HELLO!";
+          int while_counter = genome_tree.size();
+          while(while_counter > 1){
           int loc_length;
           int max_i;
           int max_j;
@@ -302,6 +303,8 @@ int main(int argc, char *argv[]) {
                MPI_Send(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
                MPI_Send(&max_j, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
           }
+          while_counter--;
+     }
      }
 
      if(myid !=0){
