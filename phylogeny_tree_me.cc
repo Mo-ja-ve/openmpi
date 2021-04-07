@@ -332,7 +332,6 @@ int main(int argc, char *argv[]) {
      cout<<endl<<"size :"<<genome_tree.size();
      }
 
-     }
 
      if(myid == 1){
           cout << "Phylogeny = " << endl;
