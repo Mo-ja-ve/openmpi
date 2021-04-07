@@ -234,15 +234,16 @@ int main(int argc, char *argv[]) {
       proc_longestLCS = MPI_Allreduce(&loc_length, &global_longest, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
 
       //cout<<endl<<"LONGEST LCS: "<<proc_longestLCS;
-      if(myid == 4){
-          cout<<endl<<"myid 4: "<<proc_pair[proc_longestLCS].first;
-          cout<<endl<<"myid 4: "<<proc_pair[proc_longestLCS].second;
-      }
 
       max_i = proc_pair[proc_longestLCS].first;
       max_j = proc_pair[proc_longestLCS].second;
 
+      if(myid == 4){
+           cout<<endl<<"myid 4: "<<proc_pair[proc_longestLCS].first;
+           cout<<endl<<"myid 4: "<<proc_pair[proc_longestLCS].second;
+      }
       //
+
       // if(loc_length == global_longest){
       // proc_smallest_i = MPI_Allreduce(&i, &max_i, 1, MPI_INT, MPI_MINLOC, MPI_COMM_WORLD);
       //     if(myid==proc_smallest_i){
