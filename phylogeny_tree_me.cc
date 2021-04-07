@@ -221,7 +221,7 @@ int main(int argc, char *argv[]) {
   int proc_smallest_i;
   bool start = true;
   int loc_length, global_longest;
-
+  if(myid != 0){
     for(int k = myid; k < proc_pair.size(); k = k + num_procs){
          //cout<<endl<<"K: "<<k;
       int i = proc_pair[k].first;
@@ -258,7 +258,7 @@ int main(int argc, char *argv[]) {
           // best = best_temp;
      //}
      }
-
+     }
      if(myid == 0){
           vector <vector <int>> largest_lcs;
           largest_lcs.resize(num_procs);
@@ -305,6 +305,7 @@ int main(int argc, char *argv[]) {
           }
      }
 
+     if(myid !=0){
      MPI_Recv(&max_i, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
      MPI_Recv(&max_j, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
@@ -318,6 +319,7 @@ int main(int argc, char *argv[]) {
      // genome_tree.erase(genome_tree.begin()+max_i);
      // genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
      // genome_tree.push_back(make_pair(new_tree_label,best));
+     }
 
      }
 
