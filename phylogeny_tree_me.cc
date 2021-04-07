@@ -220,7 +220,11 @@ int main(int argc, char *argv[]) {
   int loc_length, global_longest;
 
     for(int k = myid; k < proc_pair.size(); k = k + num_procs){
-         //cout<<endl<<"K: "<<k;
+
+      if(myid == 0){
+           cout<<endl<<"0 one";
+      }
+
       int i = proc_pair[k].first;
       int j = proc_pair[k].second;
 
@@ -229,12 +233,20 @@ int main(int argc, char *argv[]) {
       loc_length=z.length();
       max_i = i;
       max_j = j;
+            if(myid == 0){
+                 cout<<endl<<"0 two";
+            }
+
 
       if(myid != 0){
       MPI_Send(&loc_length, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
       MPI_Send(&max_i, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
       MPI_Send(&max_j, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
      }
+
+           if(myid == 0){
+                cout<<endl<<"0 three";
+           }
       //
       // cout<<endl<<max_i;
       // cout<<endl<<max_j;
