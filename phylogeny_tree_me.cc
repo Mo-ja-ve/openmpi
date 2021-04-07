@@ -266,7 +266,7 @@ int main(int argc, char *argv[]) {
                largest_lcs[j].resize(3);
           }
 
-          for(int i = 1; i <= num_procs; i++){
+          for(int i = 1; i < num_procs; i++){
                MPI_Recv(&loc_length, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                MPI_Recv(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                MPI_Recv(&max_j, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
@@ -299,7 +299,7 @@ int main(int argc, char *argv[]) {
           max_i = largest_lcs[0][1];
           max_j = largest_lcs[0][2];
 
-          for(int i = 0; i < num_procs; i++){
+          for(int i = 1; i < num_procs; i++){
                MPI_Send(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
                MPI_Send(&max_j, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
           }
