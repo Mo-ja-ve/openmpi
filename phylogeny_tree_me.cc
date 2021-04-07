@@ -238,6 +238,9 @@ int main(int argc, char *argv[]) {
       MPI_Send(&max_i, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
       MPI_Send(&max_j, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
 
+      cout<<endl<<max_i;
+      cout<<endl<<max_j;
+
      }
 
      }
