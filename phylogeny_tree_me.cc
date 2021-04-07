@@ -261,12 +261,12 @@ int main(int argc, char *argv[]) {
      }
      if(myid == 0){
           vector <vector <int>> largest_lcs;
-          largest_lcs.resize(num_procs);
+          largest_lcs.resize(num_procs-1);
           for(int j = 0; j < largest_lcs.size(); j++){
                largest_lcs[j].resize(3);
           }
 
-          for(int i = 0; i < num_procs; i++){
+          for(int i = 1; i <= num_procs; i++){
                MPI_Recv(&loc_length, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                MPI_Recv(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                MPI_Recv(&max_j, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
