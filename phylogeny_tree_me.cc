@@ -221,6 +221,7 @@ int main(int argc, char *argv[]) {
   int proc_longestLCS;
   int proc_smallest_i;
   bool start = true;
+
   int loc_length, global_longest;
     for(int k = myid-1; k < proc_pair.size(); k = k + num_procs-1){
          //cout<<endl<<"K: "<<k;
@@ -261,7 +262,7 @@ int main(int argc, char *argv[]) {
 
 
      if(myid == 0){
-          
+
           vector <vector <int>> largest_lcs;
           largest_lcs.resize(num_procs-1);
           for(int j = 0; j < largest_lcs.size(); j++){
