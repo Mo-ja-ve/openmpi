@@ -248,7 +248,7 @@ int main(int argc, char *argv[]) {
 
 
      if(myid == 0){
-
+          cout<<endl<<"HELLO!";
           int loc_length;
           int max_i;
           int max_j;
