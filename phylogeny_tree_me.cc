@@ -246,6 +246,9 @@ int main(int argc, char *argv[]) {
      }
 
      if(myid == 0){
+
+          cout<<endl"HELLO!";
+          
           vector <vector <int>> largest_lcs;
           largest_lcs.resize(num_procs-1);
           for(int j = 0; j < largest_lcs.size(); j++){
