@@ -314,16 +314,16 @@ int main(int argc, char *argv[]) {
      MPI_Recv(&max_i, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
      MPI_Recv(&max_j, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
-     cout<<endl;
-     cout<<endl<<"my proc id"<<myid<<"max i: "<<max_i;
-     cout<<endl<<"my proc id"<<myid<<"max j: "<<max_j;
+     // cout<<endl;
+     // cout<<endl<<"my proc id"<<myid<<"max i: "<<max_i;
+     // cout<<endl<<"my proc id"<<myid<<"max j: "<<max_j;
 
-     // best = compute_LCS(genome_tree[max_i].second, genome_tree[max_j].second);
-     //
-     // string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
-     // genome_tree.erase(genome_tree.begin()+max_i);
-     // genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
-     // genome_tree.push_back(make_pair(new_tree_label,best));
+     best = compute_LCS(genome_tree[max_i].second, genome_tree[max_j].second);
+
+     new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
+     genome_tree.erase(genome_tree.begin()+max_i);
+     genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
+     genome_tree.push_back(make_pair(new_tree_label,best));
      }
 
      }
