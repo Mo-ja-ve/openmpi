@@ -278,17 +278,24 @@ int main(int argc, char *argv[]) {
                largest_lcs[i-1][0] == loc_length;
                largest_lcs[i-1][1] == max_i;
                largest_lcs[i-1][2] == max_j;
+               for(int j = 0; j < largest_lcs.size(); j++){
+                    cout<<endl<<"lcs "<<largest_lcs[j][0];
+                    cout<<endl<<"i "<<largest_lcs[j][1];
+                    cout<<endl<<"j "<<largest_lcs[j][2];
+
+               }
+
           }
           int temp_lcs;
           int temp_max_i;
           int temp_max_j;
 
-          for(int i = 0; i < largest_lcs.size(); i++){
-               cout<<endl<<"lcs "<<largest_lcs[i][0];
-               cout<<endl<<"i "<<largest_lcs[i][1];
-               cout<<endl<<"j "<<largest_lcs[i][2];
-
-          }
+          // for(int i = 0; i < largest_lcs.size(); i++){
+          //      cout<<endl<<"lcs "<<largest_lcs[i][0];
+          //      cout<<endl<<"i "<<largest_lcs[i][1];
+          //      cout<<endl<<"j "<<largest_lcs[i][2];
+          //
+          // }
 
           for(int i = 0; i <largest_lcs.size(); i++){
                for(int j = i+1; j < largest_lcs.size(); j++){
