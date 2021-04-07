@@ -247,10 +247,10 @@ int main(int argc, char *argv[]) {
 
      if(myid == 0){
 
-          cout<<endl"HELLO!";
-          
+          cout<<endl<<"HELLO!";
+
           vector <vector <int>> largest_lcs;
-          largest_lcs.resize(num_procs-1);
+          largest_lcs.resize(num_procs);
           for(int j = 0; j < largest_lcs.size(); j++){
                largest_lcs[j].resize(3);
           }
