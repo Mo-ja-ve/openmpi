@@ -217,8 +217,9 @@ int main(int argc, char *argv[]) {
   string best;
   vector <char> char_best;
 
+  int proc_longestLCS;
+  int proc_smallest_i;
   bool start = true;
-
   int loc_length, global_longest;
 
     for(int k = myid; k < proc_pair.size(); k = k + num_procs){
@@ -230,48 +231,46 @@ int main(int argc, char *argv[]) {
       z=compute_LCS(genome_tree[i].second, genome_tree[j].second);
 
       loc_length=z.length();
-      MPI_Allreduce(&loc_length, &global_longest, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
+      proc_longestLCS = MPI_Allreduce(&loc_length, &global_longest, 1, MPI_INT, MPI_MAXLOC, MPI_COMM_WORLD);
 
-      //cout<<endl<<"my id: "<<myid<<"LOCAL LENGTH:  "<<loc_length<<"LONGEST LENGTH  "<<global_longest;
+      max_i = proc_pair[proc_longestLCS].first;
+      max_j = proc_pair[proc_longestLCS].second;
 
-      MPI_Allreduce(&i, &max_i, 1, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
-      MPI_Allreduce(&j, &max_j, 1, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
       //
+      // if(loc_length == global_longest){
+      // proc_smallest_i = MPI_Allreduce(&i, &max_i, 1, MPI_INT, MPI_MINLOC, MPI_COMM_WORLD);
+      //     if(myid==proc_smallest_i){
+      //          max_i = i;
+      //          max_j = j;
+      //          MPI_Bcast(&max_i, 1, MPI_INT, proc_smallest_i, MPI_)
+      //     }
 
-      if(loc_length == global_longest){
 
-           //max_i = i;
+     //MPI_Allreduce(&j, &max_j, 1, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
+
            //max_j = j;
            // cout<<endl<<"MAX I: "<<max_i;
            //cout<<endl<<"I: "<<i;
            //cout<<endl<<"J: "<<j;
            // cout<<endl<<"hello! ";
            // cout<<endl<<"MAX J: "<<max_j;
-           copy(z.begin(), z.end(), back_inserter(char_best));
-           int size2[2];
-           size2[0] = char_best.size();
+           // copy(z.begin(), z.end(), back_inserter(char_best));
+           // int size2[2];
+           // size2[0] = char_best.size();
 
-           MPI_Bcast(size2, 1, MPI_INT, myid, MPI_COMM_WORLD);
-           char_best.resize(size2[0]);
-           MPI_Bcast(&char_best[0], size2[0], MPI_CHAR, myid, MPI_COMM_WORLD);
+           // MPI_Bcast(size2, 1, MPI_INT, myid, MPI_COMM_WORLD);
+           // char_best.resize(size2[0]);
+           // MPI_Bcast(&char_best[0], size2[0], MPI_CHAR, myid, MPI_COMM_WORLD);
            //for (const char &c: char_best)
                //std::cout << c;
-          string best_temp(char_best.begin(), char_best.end());
-          best = best_temp;
-     }
+          // string best_temp(char_best.begin(), char_best.end());
+          // best = best_temp;
+     //}
 
      }
 
-     if(myid == 3){
-     string best_temp(char_best.begin(), char_best.end());
-     best = best_temp;
-     cout<<endl<<best;
-     }
-     //cout<<endl<<"BEST: "<<best;
-
-     //cout<<endl<<"MAX I: "<<max_i;
-     //
-     //cout<<endl<<"MAX J: "<<max_j;
+     cout<<endl<<"MAX I: "<<max_i;
+     cout<<endl<<"MAX J: "<<max_j;
      // string new_tree_label = "("+genome_tree[max_i].first + "," + genome_tree[max_j].first +")";
      // genome_tree.erase(genome_tree.begin()+max_i);
      // genome_tree.erase(genome_tree.begin()+max_j-1); // max_i got deleted!
