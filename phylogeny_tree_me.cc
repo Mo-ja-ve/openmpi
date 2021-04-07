@@ -96,7 +96,6 @@ string rec_string(string &x1, string &y1, vector<vector<int> > &LCS,
 
 }
 
-
 string compute_LCS(string &x1, string &y1) {
   vector<vector<int> > LCS;
   // vector<vector<pair<int, pair<int,int> > > > from;
@@ -152,9 +151,6 @@ string compute_LCS(string &x1, string &y1) {
   return z;
 }
 
-
-
-
 /// Compute the longest common subsequence.
 int main(int argc, char *argv[]) {
 
@@ -173,7 +169,6 @@ int main(int argc, char *argv[]) {
 
   vector<string> genomes;
   if(myid == 0){
-
     while (!cin.eof()) {
       string line;
       getline(cin,line);
