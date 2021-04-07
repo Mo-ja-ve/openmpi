@@ -238,26 +238,6 @@ int main(int argc, char *argv[]) {
       MPI_Send(&max_i, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
       MPI_Send(&max_j, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
 
-
-     //MPI_Allreduce(&j, &max_j, 1, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
-
-           //max_j = j;
-           // cout<<endl<<"MAX I: "<<max_i;
-           //cout<<endl<<"I: "<<i;
-           //cout<<endl<<"J: "<<j;
-           // cout<<endl<<"hello! ";
-           // cout<<endl<<"MAX J: "<<max_j;
-           // copy(z.begin(), z.end(), back_inserter(char_best));
-           // int size2[2];
-           // size2[0] = char_best.size();
-
-           // MPI_Bcast(size2, 1, MPI_INT, myid, MPI_COMM_WORLD);
-           // char_best.resize(size2[0]);
-           // MPI_Bcast(&char_best[0], size2[0], MPI_CHAR, myid, MPI_COMM_WORLD);
-           //for (const char &c: char_best)
-               //std::cout << c;
-          // string best_temp(char_best.begin(), char_best.end());
-          // best = best_temp;
      }
 
      }
@@ -311,8 +291,8 @@ int main(int argc, char *argv[]) {
 
           max_i = largest_lcs[0][1];
           max_j = largest_lcs[0][2];
-          // cout<<endl<<"max i: "<<max_i;
-          // cout<<endl<<"max j: "<<max_j;
+          cout<<endl<<"max i: "<<max_i;
+          cout<<endl<<"max j: "<<max_j;
 
           for(int i = 1; i < num_procs; i++){
                MPI_Send(&max_i, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
