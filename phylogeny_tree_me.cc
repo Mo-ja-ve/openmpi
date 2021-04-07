@@ -237,9 +237,9 @@ int main(int argc, char *argv[]) {
       MPI_Send(&loc_length, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
       MPI_Send(&max_i, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
       MPI_Send(&max_j, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
-
-      cout<<endl<<max_i;
-      cout<<endl<<max_j;
+      //
+      // cout<<endl<<max_i;
+      // cout<<endl<<max_j;
 
      }
 
@@ -308,8 +308,8 @@ int main(int argc, char *argv[]) {
      }
 
      if(myid !=0){
-     int max_i;
-     int max_j;
+     // int max_i;
+     // int max_j;
      MPI_Recv(&max_i, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
      MPI_Recv(&max_j, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
